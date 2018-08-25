@@ -1,0 +1,7 @@
+{
+  "ENTRY": "../test/",
+  "OUTPUT": "../build/",
+  "COMPONENTS": "components/",
+  "PAGES": "views/",
+  "SCSS": "scss/"
+}

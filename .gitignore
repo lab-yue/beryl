@@ -4,3 +4,5 @@ example/
 build/
 test/
 */__pycache__
+src
+public

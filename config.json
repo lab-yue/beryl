@@ -1,5 +1,5 @@
 {
-  "ENTRY": "../test/",
+  "ENTRY": "../src/",
   "OUTPUT": "../build/",
   "COMPONENTS": "components/",
   "PAGES": "views/",

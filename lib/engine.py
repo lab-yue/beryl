@@ -1,6 +1,5 @@
 import os
-from component import Component
-from page import Page
+from component import Component, Page
 from config import Config
 
 
@@ -14,11 +13,12 @@ class Engine(object):
         self.pages = {}
 
     def run(self):
+        self.clean()
         self.config.load()
 
         print('config loaded')
 
-        with open(self.config.source_path + 'index.html', 'r') as base:
+        with open(self.config.source_path.replace('src', 'public') + 'index.html', 'r') as base:
             self.base_html = base.read()
 
         self.base_component = Component(self.config.source_path + 'App.vue', self)
@@ -40,9 +40,10 @@ class Engine(object):
         if not os.path.isdir('../build'):
             os.mkdir('../build')
             os.mkdir('../build/statics')
-            os.mkdir('../build/statics/img')
+            # os.mkdir('../build/statics/imgs')
             os.mkdir('../build/statics/js')
             os.mkdir('../build/statics/css')
+            os.system(f'cp -r {self.config.source_path+"statics/imgs"} ../build/statics/imgs')
             os.system(f'cp -r {self.config.scss_path} ../build/statics/scss')
 
     def test(self):
@@ -50,7 +51,12 @@ class Engine(object):
         # print(self.components['<PageFooter/>'].style)
         # print(self.pages['About'].style)
 
+    def clean(self):
+        os.system('rm -rf ../build/')
+        print('cleared up')
+
     def compile_sass(self):
+
         os.chdir(self.config.out_path + 'statics')
         os.system('sass --update scss:css --style compressed')
 
@@ -80,4 +86,4 @@ class Engine(object):
 
 if __name__ == '__main__':
     engine = Engine()
-    engine.test()
+    engine.run()
